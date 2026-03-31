@@ -23,7 +23,7 @@ driver.get(url)
 button_xpath = '//*[@id="newsct"]/div[4]/div/div[2]'
 
 # 더보기 클릭
-for q in range(10):
+for q in range(50):
     driver.find_element(By.XPATH, button_xpath).click()
     time.sleep(0.5)
 
@@ -31,6 +31,7 @@ for q in range(10):
 #     try:
 #         button_xpath = '//*[@id="newsct"]/div[4]/div/div[2]'
 #         driver.find_element(By.XPATH, button_xpath).click()
+#         time.sleep(0.1)
 #     except:
 #         break
 
@@ -41,14 +42,15 @@ time.sleep(1)
 titles_tags = driver.find_elements(By.CLASS_NAME,'sa_text_strong')
 
 titles = []
-for title_tag in titles:
+
+for title_tag in titles_tags:
     titles.append(title_tag.text)
 
 df_titles = pd.DataFrame(titles, columns=['title'])
 df_titles['category'] = category[my_section] # 섹션 구분
 print(df_titles.head())
 df_titles.info()
-df_titles.to_csv('news_titles.csv'.format(category[my_section]), index=False)
+df_titles.to_csv('news_titles_{}.csv'.format(category[my_section]), index=False)
 
 
 # for i in range(1, 70):
